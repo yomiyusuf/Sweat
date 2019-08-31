@@ -1,16 +1,17 @@
-package com.yomi.sweat;
+package com.yomi.sweat.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
-import android.view.View;
+import android.widget.LinearLayout;
 
+import com.yomi.sweat.R;
 import com.yomi.sweat.model.Program;
 import com.yomi.sweat.network.ProgramApi;
 import com.yomi.sweat.network.ServiceGenerator;
+import com.yomi.sweat.ui.BaseActivity;
+import com.yomi.sweat.ui.views.ProgramCard;
 import com.yomi.sweat.viewModel.RecommendationsViewModel;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class MainActivity extends BaseActivity {
         }
         mRecommendationVM = ViewModelProviders.of(this).get(RecommendationsViewModel.class);
         subscribeObservers();
+        testRetro();
     }
 
     private void subscribeObservers(){
@@ -55,8 +57,12 @@ public class MainActivity extends BaseActivity {
                 Timber.e("Server response: %s", response.toString());
                 if(response.code() == 200){
                     List<Program> programs = new ArrayList<>(response.body());
+                    LinearLayout ll = findViewById(R.id.ttt);
                     for(Program program: programs){
-                        Timber.e(program.getName() + " - " + program.getTrainer().getName());
+                        //Timber.e(program.getName() + " - " + program.getTrainer().getName());
+                        ProgramCard pc = new ProgramCard(MainActivity.this);
+                        pc.setViews(program);
+                        ll.addView(pc);
                     }
                 }
             }

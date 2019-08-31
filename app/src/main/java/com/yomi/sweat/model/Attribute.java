@@ -63,19 +63,23 @@ public class Attribute
         this.name = name;
     }
 
-    public String getValue() {
-        return value;
+    public double getValue() {
+        return Double.parseDouble(value);
     }
 
     public void setValue(String value) {
         this.value = value;
     }
 
-    public String getTotal() {
-        return total;
+    public double getTotal() {
+        return Double.parseDouble(total);
     }
 
     public void setTotal(String total) {
         this.total = total;
+    }
+
+    public int barValue(){
+        return (int)Math.round(getValue()/getTotal() * 100);
     }
 }

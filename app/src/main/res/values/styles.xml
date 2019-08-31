@@ -10,4 +10,25 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="program_card_title_text">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/sweat_montserrat</item>
+    </style>
+
+    <style name="program_card_trainer_text">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:fontFamily">@font/sweat_opensans</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="program_card_rating" parent="Widget.AppCompat.RatingBar.Small">
+        <item name="colorControlNormal">@color/grey</item>
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="android:isIndicator">true</item>
+        <item name="android:numStars">3</item>
+        <item name="android:stepSize">0.5</item>
+    </style>
+
 </resources>

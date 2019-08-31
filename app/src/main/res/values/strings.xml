@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Sweat</string>
     <string name="app_logo">App Logo</string>
+    <string name="program_trainer_image">Program trainer image</string>
 </resources>
