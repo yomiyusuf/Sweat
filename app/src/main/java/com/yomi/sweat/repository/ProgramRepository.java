@@ -1,15 +1,15 @@
 package com.yomi.sweat.repository;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 import com.yomi.sweat.model.Program;
+import com.yomi.sweat.network.ProgramApiClient;
 
 import java.util.List;
 
 public class ProgramRepository {
     public static ProgramRepository instance;
-    private MutableLiveData<List<Program>> mPrograms;
+    private ProgramApiClient mProgramApiClient;
 
     public static ProgramRepository getInstance(){
         if (instance == null){
@@ -19,10 +19,10 @@ public class ProgramRepository {
     }
 
     private ProgramRepository(){
-        mPrograms = new MutableLiveData<>();
+        mProgramApiClient = ProgramApiClient.getInstance();
     }
 
     public LiveData<List<Program>> getRecommendations(){
-        return mPrograms;
+        return mProgramApiClient.getRecommendations();
     }
 }
