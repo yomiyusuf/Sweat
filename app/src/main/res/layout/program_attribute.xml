@@ -13,7 +13,7 @@
         android:fontFamily="@font/sweat_opensans"
         android:textStyle="normal"
         android:textColor="@color/grey"
-        android:textSize="12sp"
+        android:textSize="@dimen/program_attribute_title_text_size"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="8dp"

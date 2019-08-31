@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="program_card_trainer_text_size">13sp</dimen>
+    <dimen name="program_card_title_text_size">20sp</dimen>
+    <dimen name="program_card_image_width">105dp</dimen>
+    <dimen name="program_card_image_height">260dp</dimen>
+    <dimen name="card_radius">5dp</dimen>
+    <dimen name="padding_16">16dp</dimen>
+
+    <dimen name="program_attribute_title_text_size">12sp</dimen>
+
+    <dimen name="page_title_text_size">18sp</dimen>
+</resources>

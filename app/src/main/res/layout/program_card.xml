@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:elevation="8dp"
-    app:cardCornerRadius="5dp"
-    android:layout_margin="16dp"
-    >
+    app:cardCornerRadius="@dimen/card_radius"
+    android:layout_margin="16dp">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="16dp"
-        android:paddingStart="16dp"
-        android:paddingBottom="16dp"
+        android:paddingTop="@dimen/padding_16"
+        android:paddingStart="@dimen/padding_16"
+        android:paddingBottom="@dimen/padding_16"
         >
 
         <ImageView
             android:id="@+id/image_program_trainer"
-            android:layout_width="105dp"
-            android:layout_height="260dp"
+            android:layout_width="@dimen/program_card_image_width"
+            android:layout_height="@dimen/program_card_image_height"
             android:src="@drawable/trainer"
             android:scaleType="centerCrop"
             android:contentDescription="@string/program_trainer_image"
@@ -32,12 +31,12 @@
             android:id="@+id/txt_program_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="BBG"
+            tools:text="BBG"
             style="@style/program_card_title_text"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/image_program_trainer"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="@dimen/padding_16"
             />
 
         <TextView

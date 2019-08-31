@@ -2,9 +2,12 @@ package com.yomi.sweat.ui;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.yomi.sweat.R;
 import com.yomi.sweat.model.Program;
@@ -57,13 +60,18 @@ public class MainActivity extends BaseActivity {
                 Timber.e("Server response: %s", response.toString());
                 if(response.code() == 200){
                     List<Program> programs = new ArrayList<>(response.body());
-                    LinearLayout ll = findViewById(R.id.ttt);
-                    for(Program program: programs){
-                        //Timber.e(program.getName() + " - " + program.getTrainer().getName());
-                        ProgramCard pc = new ProgramCard(MainActivity.this);
-                        pc.setViews(program);
-                        ll.addView(pc);
-                    }
+                    ProgramListAdapter adapter = new ProgramListAdapter(MainActivity.this, new ProgramListAdapter.ProgramClickListener() {
+                        @Override
+                        public void onProgramClicked(Program program) {
+                            //Toast.makeText()
+                        }
+                    });
+                    RecyclerView rv = findViewById(R.id.rv_programs);
+                    rv.setHasFixedSize(true);
+                    rv.setItemViewCacheSize(20);
+                    rv.setLayoutManager(new LinearLayoutManager(MainActivity.this, RecyclerView.VERTICAL, false));
+                    rv.setAdapter(adapter);
+                    adapter.setData(programs);
                 }
             }
 

@@ -33,26 +33,21 @@
         android:id="@+id/txt_page_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Program Suggestions"
-        android:textSize="20sp"
+        android:text="@string/program_suggestions"
+        style="@style/page_title_text"
         android:layout_margin="16dp"
         android:fontFamily="@font/sweat_montserrat"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar_container" />
 
-    <ScrollView
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txt_page_title"
-        app:layout_constraintStart_toStartOf="parent"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_programs"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingTop="20dp">
-
-        <LinearLayout
-            android:id="@+id/ttt"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/txt_page_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/program_card"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

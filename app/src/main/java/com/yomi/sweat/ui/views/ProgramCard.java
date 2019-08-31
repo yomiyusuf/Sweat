@@ -21,6 +21,8 @@ import com.yomi.sweat.model.Tag;
 
 public class ProgramCard extends CardView {
     private Context mContext;
+    LinearLayout programAttributesContainer;
+    ImageView image;
     public ProgramCard(@NonNull Context context) {
         super(context);
         initializeViews(context);
@@ -43,11 +45,12 @@ public class ProgramCard extends CardView {
     }
 
     public void setViews(Program program){
+        resetViews();
         TextView programTitle = findViewById(R.id.txt_program_title);
         TextView programTrainer = findViewById(R.id.txt_program_trainer_name);
-        LinearLayout programAttributesContainer = findViewById(R.id.layout_program_attributes);
+        programAttributesContainer = findViewById(R.id.layout_program_attributes);
         TagView programTags= findViewById(R.id.tagview_program_tags);
-        ImageView image = findViewById(R.id.image_program_trainer);
+        image = findViewById(R.id.image_program_trainer);
 
         programTitle.setText(program.getName());
         programTrainer.setText("with " + program.getTrainer().getName());
@@ -64,5 +67,11 @@ public class ProgramCard extends CardView {
         if(program.getTags() != null){
             programTags.setTags(program.getTags(), (DataTransform<Tag>) t -> t.getName());
         }
+    }
+
+    //Method to clear data in case the view is recycled in a recyclerView
+    private void resetViews(){
+        programAttributesContainer.removeAllViews();
+        image.setImageResource(0);
     }
 }
