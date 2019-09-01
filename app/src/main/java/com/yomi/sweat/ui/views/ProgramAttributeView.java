@@ -40,7 +40,7 @@ public class ProgramAttributeView extends ConstraintLayout {
         RoundedHorizontalProgressBar bar = this.findViewById(R.id.progress_bar_attribute);
 
         title.setText(programAttribute.getName());
-        bar.setProgress(programAttribute.barValue());
-        //bar.animateProgress(1000, 0, programAttribute.barValue());
+        //bar.setProgress(programAttribute.barValue());
+        bar.animateProgress(1000, 0, programAttribute.barValue());
     }
 }
