@@ -6,28 +6,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.yomi.sweat.R;
-import com.yomi.sweat.model.Program;
-import com.yomi.sweat.network.ProgramApi;
-import com.yomi.sweat.network.ServiceGenerator;
-import com.yomi.sweat.ui.BaseActivity;
-import com.yomi.sweat.ui.views.ProgramCard;
 import com.yomi.sweat.viewModel.RecommendationsViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import timber.log.Timber;
 
 public class MainActivity extends BaseActivity {
 
     private RecommendationsViewModel mRecommendationVM;
+    RecyclerView recyclerView;
+    ProgramListAdapter adapter;
+    LinearLayout shimmer;
+    LinearLayout errorView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,48 +32,74 @@ public class MainActivity extends BaseActivity {
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+        initViews();
         mRecommendationVM = ViewModelProviders.of(this).get(RecommendationsViewModel.class);
+        initRecyclerView();
         subscribeObservers();
-        testRetro();
+        requestRecommendations();
+    }
+
+    private void initViews(){
+        shimmer = findViewById(R.id.progress_shimmer);
+        errorView = findViewById(R.id.error_view);
+    }
+
+    private void initRecyclerView() {
+        recyclerView = findViewById(R.id.rv_programs);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setItemViewCacheSize(20);
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(60));
+
+        adapter = new ProgramListAdapter(MainActivity.this, program -> {
+            Toast.makeText(this, program.getName(), Toast.LENGTH_SHORT).show();
+        });
+        LinearLayoutManager ll = new LinearLayoutManager(MainActivity.this, RecyclerView.VERTICAL, false);
+        ll.setInitialPrefetchItemCount(10);
+        recyclerView.setLayoutManager(ll);
+        adapter.setHasStableIds(true);
+        recyclerView.setAdapter(adapter);
     }
 
     private void subscribeObservers(){
         mRecommendationVM.getRecommendations().observe(this, programs -> {
+            if(programs != null) {
+                hideProgressShimmer();
+                adapter.setData(programs);
+                mRecommendationVM.setmDidRetrieveRecommendations(true);
+            }
+        });
 
+        mRecommendationVM.isRequestTimedOut().observe(this, timedOut -> {
+            if (timedOut && !mRecommendationVM.didRetrieveRecommendations()){
+                hideProgressShimmer();
+                displayError();
+            }
         });
     }
 
-    private void testRetro(){
-        ProgramApi api = ServiceGenerator.getProgramApi();
+    private void requestRecommendations(){
+        showShimmer();
+        mRecommendationVM.requestRecommendations();
+    }
 
-        Call<List<Program>> response = api.getPrograms();
-        Timber.e(response.request().toString());
-
-        response.enqueue(new Callback<List<Program>>() {
-            @Override
-            public void onResponse(Call<List<Program>> call, Response<List<Program>> response) {
-                Timber.e("Server response: %s", response.toString());
-                if(response.code() == 200){
-                    List<Program> programs = new ArrayList<>(response.body());
-                    ProgramListAdapter adapter = new ProgramListAdapter(MainActivity.this, new ProgramListAdapter.ProgramClickListener() {
-                        @Override
-                        public void onProgramClicked(Program program) {
-                            //Toast.makeText()
-                        }
-                    });
-                    RecyclerView rv = findViewById(R.id.rv_programs);
-                    rv.setHasFixedSize(true);
-                    rv.setItemViewCacheSize(20);
-                    rv.setLayoutManager(new LinearLayoutManager(MainActivity.this, RecyclerView.VERTICAL, false));
-                    rv.setAdapter(adapter);
-                    adapter.setData(programs);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Program>> call, Throwable t) {
-                Timber.e("Server error is: %s", response.toString());
-            }
+    private void displayError() {
+        errorView.setVisibility(View.VISIBLE);
+        findViewById(R.id.btn_error_retry).setOnClickListener(view -> {
+            requestRecommendations();
+            hideError();
         });
+    }
+
+    private void hideError() {
+        errorView.setVisibility(View.GONE);
+    }
+
+    private void showShimmer() {
+        shimmer.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgressShimmer() {
+        shimmer.setVisibility(View.GONE);
     }
 }

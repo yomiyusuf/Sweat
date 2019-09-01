@@ -3,13 +3,10 @@ package com.yomi.sweat.ui;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.yomi.sweat.model.Program;
 import com.yomi.sweat.ui.views.ProgramCard;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -48,7 +45,11 @@ public class ProgramListAdapter extends RecyclerView.Adapter<ProgramListAdapter.
 
     @Override
     public int getItemCount() {
-        return programs.size();
+        if (programs == null){
+            return 0;
+        } else{
+            return programs.size();
+        }
     }
 
     public void setData(List<Program> data){

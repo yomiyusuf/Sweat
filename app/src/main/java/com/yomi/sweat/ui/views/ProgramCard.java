@@ -23,6 +23,7 @@ public class ProgramCard extends CardView {
     private Context mContext;
     LinearLayout programAttributesContainer;
     ImageView image;
+    TagView programTags;
     public ProgramCard(@NonNull Context context) {
         super(context);
         initializeViews(context);
@@ -40,17 +41,18 @@ public class ProgramCard extends CardView {
 
     private void initializeViews(Context context) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.program_card, this);
+        inflater.inflate(R.layout.program_card2, this);
         mContext = context;
     }
 
     public void setViews(Program program){
-        resetViews();
         TextView programTitle = findViewById(R.id.txt_program_title);
         TextView programTrainer = findViewById(R.id.txt_program_trainer_name);
         programAttributesContainer = findViewById(R.id.layout_program_attributes);
-        TagView programTags= findViewById(R.id.tagview_program_tags);
+        programTags = findViewById(R.id.tagview_program_tags);
         image = findViewById(R.id.image_program_trainer);
+
+        resetViews();
 
         programTitle.setText(program.getName());
         programTrainer.setText("with " + program.getTrainer().getName());
@@ -73,5 +75,6 @@ public class ProgramCard extends CardView {
     private void resetViews(){
         programAttributesContainer.removeAllViews();
         image.setImageResource(0);
+        programTags.clear();
     }
 }

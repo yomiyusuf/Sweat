@@ -20,6 +20,8 @@ import static com.yomi.sweat.util.Constants.NETWORK_TIMEOUT;
 public class ProgramApiClient {
     private static ProgramApiClient instance;
     private MutableLiveData<List<Program>> mPrograms;
+    private MutableLiveData<Boolean> isRequestTimedOut = new MutableLiveData<>();
+    private RetrieveProgramsRunnable mRetrieveProgramsRunnable;
 
     public static ProgramApiClient getInstance(){
         if(instance == null){
@@ -36,17 +38,22 @@ public class ProgramApiClient {
         return mPrograms;
     }
 
-    public void callProgramsApi(){
-        final Future handler = AppExecutors.get().networkIO().submit(new Runnable() {
-            @Override
-            public void run() {
-                //retrieve data from api
+    public LiveData<Boolean> isRequestTimedOut() {
+        return isRequestTimedOut;
+    }
 
-            }
-        });
+    public void requestRecommendations(){
+        if(mRetrieveProgramsRunnable != null){
+            mRetrieveProgramsRunnable = null;
+        }
+        mRetrieveProgramsRunnable = new RetrieveProgramsRunnable();
+        final Future handler = AppExecutors.get().networkIO().submit(mRetrieveProgramsRunnable);
+
+        //Setting timeout for data refresh
         AppExecutors.get().networkIO().schedule(new Runnable() {
             @Override
             public void run() {
+                isRequestTimedOut.postValue(true);
                 handler.cancel(true);
             }
         }, NETWORK_TIMEOUT, TimeUnit.MILLISECONDS);

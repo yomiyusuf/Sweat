@@ -25,4 +25,12 @@ public class ProgramRepository {
     public LiveData<List<Program>> getRecommendations(){
         return mProgramApiClient.getRecommendations();
     }
+
+    public void requestRecommendations(){
+        mProgramApiClient.requestRecommendations();
+    }
+
+    public LiveData<Boolean> isRequestTimedOut() {
+        return mProgramApiClient.isRequestTimedOut();
+    }
 }

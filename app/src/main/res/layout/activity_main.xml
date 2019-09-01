@@ -45,9 +45,35 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
+        android:padding="@dimen/padding_16"
+        android:clipToPadding="false"
         app:layout_constraintTop_toBottomOf="@id/txt_page_title"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/program_card"
         />
+
+    <LinearLayout
+        android:id="@+id/progress_shimmer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_16"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/txt_page_title">
+
+        <include layout="@layout/program_view_placeholder" />
+        <include layout="@layout/program_view_placeholder" />
+        <include layout="@layout/program_view_placeholder" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/error_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_16"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/txt_page_title"
+        android:visibility="gone">
+        <include layout="@layout/error_view" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

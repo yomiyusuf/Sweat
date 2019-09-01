@@ -3,4 +3,6 @@
     <string name="app_logo">App Logo</string>
     <string name="program_trainer_image">Program trainer image</string>
     <string name="program_suggestions">Program Suggestions</string>
+    <string name="error_message">There was a problem. Check your internet connection and retry</string>
+    <string name="retry">Retry</string>
 </resources>
