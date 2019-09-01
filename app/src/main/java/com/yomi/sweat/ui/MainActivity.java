@@ -57,7 +57,6 @@ public class MainActivity extends BaseActivity {
         LinearLayoutManager ll = new LinearLayoutManager(MainActivity.this, RecyclerView.VERTICAL, false);
         ll.setInitialPrefetchItemCount(10);
         recyclerView.setLayoutManager(ll);
-        adapter.setHasStableIds(true);
         recyclerView.setAdapter(adapter);
     }
 

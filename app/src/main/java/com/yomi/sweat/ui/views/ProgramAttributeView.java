@@ -12,8 +12,6 @@ import com.sasank.roundedhorizontalprogress.RoundedHorizontalProgressBar;
 import com.yomi.sweat.R;
 import com.yomi.sweat.model.Attribute;
 
-import timber.log.Timber;
-
 public class ProgramAttributeView extends ConstraintLayout {
     public ProgramAttributeView(Context context) {
         super(context);
@@ -40,7 +38,7 @@ public class ProgramAttributeView extends ConstraintLayout {
         RoundedHorizontalProgressBar bar = this.findViewById(R.id.progress_bar_attribute);
 
         title.setText(programAttribute.getName());
-        //bar.setProgress(programAttribute.barValue());
+        bar.setProgress(programAttribute.barValue());
         bar.animateProgress(1000, 0, programAttribute.barValue());
     }
 }
