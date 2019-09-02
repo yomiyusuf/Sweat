@@ -47,7 +47,7 @@
             />
 
         <io.techery.properratingbar.ProperRatingBar
-            android:id="@+id/rating_program"
+            android:id="@+id/rating_program_intensity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -63,7 +63,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_below="@id/rating_program"
+            android:layout_below="@id/rating_program_intensity"
             android:layout_alignParentStart="true"
             android:layout_alignEnd="@id/txt_program_title"
             >

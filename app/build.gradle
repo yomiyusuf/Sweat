@@ -21,6 +21,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -36,7 +42,6 @@ dependencies {
     implementation "androidx.cardview:cardview:$androidxVersion"
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'com.facebook.shimmer:shimmer:0.4.0'
-    implementation 'com.google.android:flexbox:1.1.0'
     implementation 'com.sasank.roundedhorizontalprogress:roundedhorizontalprogress:1.0.1'
     implementation 'com.github.tommykw:TagView:0.0.1'
     implementation 'com.github.techery:properratingbar:0.0.5'
@@ -47,6 +52,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
     implementation 'com.squareup.okhttp3:okhttp:3.13.1'
     implementation "com.squareup.picasso:picasso:2.71828"
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
 
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
 
@@ -57,4 +63,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation "org.robolectric:robolectric:4.3"
 }

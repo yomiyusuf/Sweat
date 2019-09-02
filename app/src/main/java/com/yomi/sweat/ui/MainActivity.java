@@ -64,6 +64,7 @@ public class MainActivity extends BaseActivity {
         mRecommendationVM.getRecommendations().observe(this, programs -> {
             if(programs != null) {
                 hideProgressShimmer();
+                hideError();
                 adapter.setData(programs);
                 mRecommendationVM.setmDidRetrieveRecommendations(true);
             }

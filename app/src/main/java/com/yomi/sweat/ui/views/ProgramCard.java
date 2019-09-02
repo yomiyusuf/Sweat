@@ -1,6 +1,7 @@
 package com.yomi.sweat.ui.views;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,8 @@ import com.yomi.sweat.model.Program;
 import com.yomi.sweat.model.Tag;
 
 import io.techery.properratingbar.ProperRatingBar;
+
+import static com.yomi.sweat.App.isRoboUnitTest;
 
 public class ProgramCard extends CardView {
     private Context mContext;
@@ -51,7 +54,7 @@ public class ProgramCard extends CardView {
     public void setViews(Program program){
         TextView programTitle = findViewById(R.id.txt_program_title);
         TextView programTrainer = findViewById(R.id.txt_program_trainer_name);
-        ProperRatingBar intensityRating = findViewById(R.id.rating_program);
+        ProperRatingBar intensityRating = findViewById(R.id.rating_program_intensity);
         programAttributesContainer = findViewById(R.id.layout_program_attributes);
         programTags = findViewById(R.id.tagview_program_tags);
         image = findViewById(R.id.image_program_trainer);
@@ -68,9 +71,12 @@ public class ProgramCard extends CardView {
         } else {
             intensityRating.setRating(intensity);
         }
-        Picasso.get()
-                .load(program.getImage())
-                .into(image);
+
+        if (!isRoboUnitTest()){
+            Picasso.get()
+                    .load(program.getImage())
+                    .into(image);
+        }
 
         for(Attribute attribute: program.getAttributes()){
             ProgramAttributeView attr = new ProgramAttributeView(mContext);
