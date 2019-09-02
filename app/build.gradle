@@ -38,7 +38,8 @@ dependencies {
     implementation 'com.facebook.shimmer:shimmer:0.4.0'
     implementation 'com.google.android:flexbox:1.1.0'
     implementation 'com.sasank.roundedhorizontalprogress:roundedhorizontalprogress:1.0.1'
-    compile 'com.github.tommykw:TagView:0.0.1'
+    implementation 'com.github.tommykw:TagView:0.0.1'
+    implementation 'com.github.techery:properratingbar:0.0.5'
 
     //Network
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'

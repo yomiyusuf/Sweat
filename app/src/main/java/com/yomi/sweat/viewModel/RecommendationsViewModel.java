@@ -1,21 +1,23 @@
 package com.yomi.sweat.viewModel;
 
+import android.app.Application;
+
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.yomi.sweat.model.Program;
 import com.yomi.sweat.repository.ProgramRepository;
 
 import java.util.List;
 
-public class RecommendationsViewModel extends ViewModel {
+public class RecommendationsViewModel extends AndroidViewModel {
     private ProgramRepository mProgramRepository;
 
     private boolean mDidRetrieveRecommendations;
 
-    public RecommendationsViewModel() {
-
-        mProgramRepository = ProgramRepository.getInstance();
+    public RecommendationsViewModel(Application application) {
+        super(application);
+        mProgramRepository = ProgramRepository.getInstance(application);
         mDidRetrieveRecommendations = false;
     }
 

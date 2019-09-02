@@ -1,5 +1,7 @@
 package com.yomi.sweat.network;
 
+import android.content.Context;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -18,19 +20,21 @@ import retrofit2.Response;
 import static com.yomi.sweat.util.Constants.NETWORK_TIMEOUT;
 
 public class ProgramApiClient {
+    private Context mContext;
     private static ProgramApiClient instance;
     private MutableLiveData<List<Program>> mPrograms;
     private MutableLiveData<Boolean> isRequestTimedOut = new MutableLiveData<>();
     private RetrieveProgramsRunnable mRetrieveProgramsRunnable;
 
-    public static ProgramApiClient getInstance(){
+    public static ProgramApiClient getInstance(Context context){
         if(instance == null){
-            instance = new ProgramApiClient();
+            instance = new ProgramApiClient(context);
         }
         return instance;
     }
 
-    private ProgramApiClient(){
+    private ProgramApiClient(Context context){
+        mContext = context;
         mPrograms = new MutableLiveData<>();
     }
 
@@ -84,7 +88,7 @@ public class ProgramApiClient {
         }
 
         private Call<List<Program>> getRecomendations(){
-            return ServiceGenerator.getProgramApi().getPrograms();
+            return ServiceGenerator.getProgramApi(mContext).getPrograms();
         }
 
         private void cancelRequest(){

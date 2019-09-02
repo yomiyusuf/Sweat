@@ -2,6 +2,7 @@ package com.yomi.sweat.model;
 
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Program implements Serializable
@@ -96,7 +97,15 @@ public class Program implements Serializable
     }
 
     public List<Attribute> getAttributes() {
-        return attributes;
+        String intensityName = "intensity";
+        List<Attribute> list = new ArrayList<>();
+
+        for (Attribute a : this.attributes) {
+            if (!intensityName.equals(a.getCodeName())) {
+                list.add(a);
+            }
+        }
+        return list;
     }
 
     public void setAttributes(List<Attribute> attributes) {
@@ -117,6 +126,22 @@ public class Program implements Serializable
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
+    }
+
+    public int getIntensityRating(){
+        String intensityName = "intensity";
+        Attribute result = null;
+        for (Attribute a : this.attributes) {
+            if (intensityName.equals(a.getCodeName())) {
+                result = a;
+                break;
+            }
+        }
+        if ( result == null ){
+            return -1;
+        } else {
+            return (int) result.getValue();
+        }
     }
 }
 
