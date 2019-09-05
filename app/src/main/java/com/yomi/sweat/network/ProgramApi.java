@@ -6,6 +6,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface ProgramApi {
-    @GET("bins/r8zb7")
+    @GET("b/5d706bc5fc5937640ce331bc")
     Call<List<Program>> getPrograms();
 }
